@@ -1,25 +1,31 @@
-import dayImage from './images/greenhouse-day.jpg';
-import nightImage from './images/greenhouse-night.jpg';
-import './Greenhouse.css';
-import useThemeContext from '../../context/ThemeContext';
-import ThemeProvider from '../../context/ThemeContext';
-import { ThemeContext } from '@emotion/react';
-import { useTheme } from '@emotion/react';
-
-import LightSwitch from './LightSwitch';
-import ClimateStats from './ClimateStats';
+import dayImage from "./images/greenhouse-day.jpg";
+import nightImage from "./images/greenhouse-night.jpg";
+import "./Greenhouse.css";
+import { useTheme } from "../../context/ThemeContext";
+import LightSwitch from "./LightSwitch";
+import ClimateStats from "./ClimateStats";
+import { useState } from "react";
+// import "./LightSwitch.css";
 
 function Greenhouse() {
+  const { themeName, setThemeName } = useTheme();
+  const [image, setImage] = useState(dayImage);
 
-  const {themeName, setThemeName} = useTheme();
+  const toggleImage = (e) => {
+    e.preventDefault();
+    if (e.target.className === "on") {
+      setThemeName("day");
+      setImage(dayImage);
+    } else {
+      setThemeName("night");
+      setImage(nightImage);
+    }
+  };
 
   return (
-    <section>
-      <img  className='greenhouse-img'
-            src={dayImage}
-            alt='greenhouse' 
-      />
+    <section onClick={toggleImage}>
       <LightSwitch />
+      <img className="greenhouse-img" src={image} alt="greenhouse" />
       <ClimateStats />
     </section>
   );
