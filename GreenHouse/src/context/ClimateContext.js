@@ -5,9 +5,6 @@ import { createContext, useContext, useState } from "react";
 
 export const ClimateContext = createContext();  //? creating context
 
-
-
-
 export const useClimate = () => useContext(ClimateContext);  //? using context
 
 export default function ClimateProvider( props) {  // can use props without curlies or {children} with curly
@@ -15,7 +12,7 @@ export default function ClimateProvider( props) {  // can use props without curl
   const [humidity, setHumidity] = useState(40);
   return (
 
-    <ClimateContext.Provider value={{ climate, setClimate }}>
+    <ClimateContext.Provider value={{ climate, setClimate, humidity, setHumidity }}>
 
       {props.children}
     </ClimateContext.Provider>
